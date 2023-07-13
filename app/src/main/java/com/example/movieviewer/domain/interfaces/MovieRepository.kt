@@ -1,4 +1,4 @@
-package com.example.movieviewer.data.repository
+package com.example.movieviewer.domain.interfaces
 
 import com.example.movieviewer.data.model.Movie
 import com.example.movieviewer.domain.Resource
