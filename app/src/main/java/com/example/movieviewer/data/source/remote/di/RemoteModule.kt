@@ -1,6 +1,7 @@
 package com.example.movieviewer.data.source.remote.di
 
 import com.example.movieviewer.data.source.remote.api.MoviesDatabaseRapidApi
+import com.example.movieviewer.data.source.remote.interceptors.HeaderInterceptor
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
@@ -21,7 +22,7 @@ object RemoteModule {
 
     @Singleton
     @Provides
-    fun provideOpenFoodApi(retrofit: Retrofit): MoviesDatabaseRapidApi =
+    fun provideMoviesDatabaseRapidApi(retrofit: Retrofit): MoviesDatabaseRapidApi =
         retrofit.create(MoviesDatabaseRapidApi::class.java)
 
     @Singleton
@@ -44,12 +45,11 @@ object RemoteModule {
     @Singleton
     @Provides
     fun provideHttpClient(): OkHttpClient {
-        val loggingInterceptor = HttpLoggingInterceptor()
-        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
         return OkHttpClient.Builder()
-            .addInterceptor(loggingInterceptor)
             .readTimeout(20, TimeUnit.SECONDS)
             .connectTimeout(20, TimeUnit.SECONDS)
+            .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+            .addInterceptor(HeaderInterceptor())
             .build()
     }
 }
