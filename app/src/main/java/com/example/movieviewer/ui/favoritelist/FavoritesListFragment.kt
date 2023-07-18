@@ -27,7 +27,7 @@ class FavoritesListFragment : Fragment(R.layout.fragment_favorites_list), Favori
         super.onViewCreated(view, savedInstanceState)
         binding.lifecycleOwner = this
         initViews()
-        intObservers()
+//        intObservers()
     }
 
     override fun onDestroyView() {
@@ -37,7 +37,7 @@ class FavoritesListFragment : Fragment(R.layout.fragment_favorites_list), Favori
 
     private fun initViews() {
         initFavoritesListRecyclerView()
-        initListeners()
+//        initListeners()
     }
 
     private fun initFavoritesListRecyclerView() {
@@ -47,14 +47,19 @@ class FavoritesListFragment : Fragment(R.layout.fragment_favorites_list), Favori
     }
 
     private fun initListeners() {
-        TODO("Not yet implemented")
+
     }
 
     private fun intObservers() {
-        TODO("Not yet implemented")
+
     }
 
     override fun onFavoriteClicked(id: String) {
-        TODO("Not yet implemented")
+
+    }
+
+    companion object {
+        @JvmStatic
+        fun newInstance() = FavoritesListFragment()
     }
 }

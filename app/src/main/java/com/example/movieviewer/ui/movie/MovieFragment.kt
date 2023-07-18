@@ -74,4 +74,9 @@ class MovieFragment : Fragment(R.layout.fragment_movie) {
             }
         }
     }
+    companion object {
+        @JvmStatic
+        fun newInstance() = MovieFragment()
+    }
+
 }
