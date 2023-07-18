@@ -4,8 +4,8 @@ import com.squareup.moshi.Json
 
 data class TitleText(
     @Json(name = "__typename")
-    val __typename: String,
+    val __typename: String?,
 
     @Json(name = "text")
-    val text: String
+    val text: String?
 )

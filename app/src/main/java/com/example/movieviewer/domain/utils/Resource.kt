@@ -1,4 +1,4 @@
-package com.example.movieviewer.domain
+package com.example.movieviewer.domain.utils
 
 sealed class Resource<T>(
     val data: T? = null,

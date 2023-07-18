@@ -7,8 +7,8 @@ data class ReleaseYear(
     val __typename: String,
 
     @Json(name = "endYear")
-    val endYear: String,
+    val endYear: String? ,
 
     @Json(name = "year")
-    val year: Int
+    val year: String?
 )
