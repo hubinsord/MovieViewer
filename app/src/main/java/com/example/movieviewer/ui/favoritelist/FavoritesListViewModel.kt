@@ -30,7 +30,7 @@ class FavoritesListViewModel @Inject constructor(
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 { list -> _movieList.value = list },
-                { t: Throwable -> Timber.tag("TEST05").d(t.message) }
+                { t: Throwable ->  }
             )
     }
 

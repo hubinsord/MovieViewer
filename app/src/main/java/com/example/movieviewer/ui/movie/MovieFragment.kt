@@ -56,6 +56,15 @@ class MovieFragment : Fragment(R.layout.fragment_movie) {
         }
     }
 
+    private fun loadMoviePoster(movie: Movie?) {
+        binding.apply {
+            Glide.with(root)
+                .load(movie?.imageUrl)
+                .placeholder(R.drawable.iv_image_placeholder)
+                .into(ivMoviePoster)
+        }
+    }
+
     private fun initIsLoadingObserver() {
         viewModel.isFavorite.observe(viewLifecycleOwner) { isLoading ->
             binding.progressBar.apply {
@@ -69,15 +78,6 @@ class MovieFragment : Fragment(R.layout.fragment_movie) {
             binding.ivFavorite.setBackgroundResource(
                 if (movie.isFavorite) R.drawable.iv_favorite_filled else R.drawable.iv_favorite_outline
             )
-        }
-    }
-
-    private fun loadMoviePoster(movie: Movie?) {
-        binding.apply {
-            Glide.with(root)
-                .load(movie?.imageUrl)
-                .placeholder(R.drawable.iv_image_placeholder)
-                .into(ivMoviePoster)
         }
     }
 

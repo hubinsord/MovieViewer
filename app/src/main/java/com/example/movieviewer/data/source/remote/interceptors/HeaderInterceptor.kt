@@ -9,10 +9,10 @@ class HeaderInterceptor: Interceptor {
             proceed(
                 request()
                     .newBuilder()
+                    //normally I would place api key in local.properties to avoid placing it on github, but for the sake of
+                    //the task I left it here to make it possible to build the app
                     .addHeader("X-RapidAPI-Key", "9be336a500msh64585eb4e50c2d0p125594jsn16210933b82b")
                     .addHeader("X-RapidAPI-Host", "moviesdatabase.p.rapidapi.com")
-//                    .removeHeader("User-Agent")
-//                    .addHeader("User-Agent", "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:38.0) Gecko/20100101 Firefox/38.0")
                     .build()
             )
         }
