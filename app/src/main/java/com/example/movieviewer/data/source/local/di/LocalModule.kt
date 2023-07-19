@@ -5,7 +5,7 @@ import androidx.room.Room
 import com.example.movieviewer.data.source.local.MovieLocalDataSourceImpl
 import com.example.movieviewer.data.source.local.dao.MovieDao
 import com.example.movieviewer.data.source.local.db.MovieDatabase
-import com.example.movieviewer.domain.interfaces.MovieLocalDataSource
+import com.example.movieviewer.data.source.MovieLocalDataSource
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

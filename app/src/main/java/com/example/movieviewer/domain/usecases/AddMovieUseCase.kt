@@ -1,7 +1,7 @@
 package com.example.movieviewer.domain.usecases
 
 import com.example.movieviewer.data.entities.Movie
-import com.example.movieviewer.domain.interfaces.MovieRepository
+import com.example.movieviewer.domain.repositories.MovieRepository
 import io.reactivex.rxjava3.core.Completable
 import javax.inject.Inject
 

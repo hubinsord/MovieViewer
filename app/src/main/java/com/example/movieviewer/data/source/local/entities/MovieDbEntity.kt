@@ -1,4 +1,4 @@
-package com.example.movieviewer.data.source.local.entity
+package com.example.movieviewer.data.source.local.entities
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

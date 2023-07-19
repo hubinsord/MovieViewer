@@ -3,7 +3,7 @@ package com.example.movieviewer.data.source.remote.di
 import com.example.movieviewer.data.source.remote.MovieRemoteDataSourceImpl
 import com.example.movieviewer.data.source.remote.api.MoviesDatabaseRapidApi
 import com.example.movieviewer.data.source.remote.interceptors.HeaderInterceptor
-import com.example.movieviewer.domain.interfaces.MovieRemoteDataSource
+import com.example.movieviewer.data.source.MovieRemoteDataSource
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module

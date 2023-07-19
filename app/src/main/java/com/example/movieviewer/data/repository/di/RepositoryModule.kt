@@ -1,9 +1,9 @@
 package com.example.movieviewer.data.repository.di
 
 import com.example.movieviewer.data.repository.MovieRepositoryImpl
-import com.example.movieviewer.domain.interfaces.MovieLocalDataSource
-import com.example.movieviewer.domain.interfaces.MovieRemoteDataSource
-import com.example.movieviewer.domain.interfaces.MovieRepository
+import com.example.movieviewer.data.source.MovieLocalDataSource
+import com.example.movieviewer.data.source.MovieRemoteDataSource
+import com.example.movieviewer.domain.repositories.MovieRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

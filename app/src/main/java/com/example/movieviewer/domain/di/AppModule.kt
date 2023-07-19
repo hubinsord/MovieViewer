@@ -1,6 +1,6 @@
 package com.example.movieviewer.domain.di
 
-import com.example.movieviewer.domain.interfaces.MovieRepository
+import com.example.movieviewer.domain.repositories.MovieRepository
 import com.example.movieviewer.domain.usecases.AddMovieUseCase
 import com.example.movieviewer.domain.usecases.GetMoviesListFromLocalUseCase
 import com.example.movieviewer.domain.usecases.GetRandomMovieUseCase
