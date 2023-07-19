@@ -37,10 +37,15 @@ class MovieFragment : Fragment(R.layout.fragment_movie) {
     }
 
     private fun initListeners() {
-        binding.ivRefreshMovie.setOnClickListener {
-            Timber.tag("TEST03").d("refresh clicked")
-            viewModel.onRefreshMovieClicked()
+        binding.apply {
+            ivRefreshMovie.setOnClickListener {
+                viewModel.onRefreshMovieClicked()
+            }
+            ivFavorite.setOnClickListener {
+                viewModel.onIsFavoriteClicked()
+            }
         }
+
     }
 
     override fun onDestroyView() {
@@ -53,14 +58,13 @@ class MovieFragment : Fragment(R.layout.fragment_movie) {
             when (it) {
                 is Resource.Loading -> {
                     Toast.makeText(requireContext(), "Loading", Toast.LENGTH_SHORT).show()
-                    Timber.tag("TEST02").d("Loading: ${it.error}")
                 }
 
                 is Resource.Success -> {
                     binding.apply {
                         Glide.with(root)
                             .load(it.data?.imageUrl)
-//                            .placeholder()
+                            .placeholder(R.drawable.iv_image_placeholder)
                             .into(ivMoviePoster)
                         tvReleaseYear.text = it.data?.releaseYear.toString() ?: "none"
                         tvTitle.text = it.data?.title ?: ""
@@ -69,11 +73,11 @@ class MovieFragment : Fragment(R.layout.fragment_movie) {
 
                 is Resource.Error -> {
                     Toast.makeText(requireContext(), it.error, Toast.LENGTH_SHORT).show()
-                    Timber.tag("TEST01").d("error: ${it.error}")
                 }
             }
         }
     }
+
     companion object {
         @JvmStatic
         fun newInstance() = MovieFragment()

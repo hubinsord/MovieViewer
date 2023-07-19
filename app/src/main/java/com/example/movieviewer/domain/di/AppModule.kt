@@ -1,6 +1,7 @@
 package com.example.movieviewer.domain.di
 
 import com.example.movieviewer.domain.interfaces.MovieRepository
+import com.example.movieviewer.domain.usecases.AddMovieUseCase
 import com.example.movieviewer.domain.usecases.GetRandomMovieUseCase
 import dagger.Module
 import dagger.Provides
@@ -15,4 +16,8 @@ object AppModule {
     @Singleton
     @Provides
     fun provideGetRandomMovieUseCase(repository: MovieRepository) = GetRandomMovieUseCase(repository)
+
+    @Singleton
+    @Provides
+    fun provideAddMovieUseCase(repository: MovieRepository) = AddMovieUseCase(repository)
 }

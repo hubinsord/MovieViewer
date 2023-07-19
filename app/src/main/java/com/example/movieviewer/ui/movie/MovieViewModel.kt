@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.movieviewer.data.entities.Movie
+import com.example.movieviewer.domain.usecases.AddMovieUseCase
 import com.example.movieviewer.domain.usecases.GetRandomMovieUseCase
 import com.example.movieviewer.domain.utils.Resource
 import com.example.movieviewer.domain.utils.safeCall
@@ -25,7 +26,8 @@ data class MovieUiState(
 
 @HiltViewModel
 class MovieViewModel @Inject constructor(
-    private val getRandomMovieUseCase: GetRandomMovieUseCase
+    private val getRandomMovieUseCase: GetRandomMovieUseCase,
+    private val addMovieUseCase: AddMovieUseCase,
 ) : ViewModel() {
 
     private val _movie = MutableLiveData<Resource<Movie>>()
@@ -33,11 +35,10 @@ class MovieViewModel @Inject constructor(
 
     @SuppressLint("CheckResult")
     private fun getRandomMovie() {
-        getRandomMovieUseCase.invokeRX()
+        getRandomMovieUseCase.invoke()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .map { safeCall { it } }
-            .doOnSubscribe({})
             .subscribe(
                 { resource ->
                     _movie.value = Resource.Loading()
@@ -52,7 +53,7 @@ class MovieViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             _movie.postValue(Resource.Loading())
             _movie.postValue(
-                getRandomMovieUseCase.invoke()
+                getRandomMovieUseCase.invokeCoroutines()
             )
         }
     }
@@ -60,5 +61,14 @@ class MovieViewModel @Inject constructor(
     fun onRefreshMovieClicked() {
 //        getMovie()
         getRandomMovie()
+    }
+
+    fun onIsFavoriteClicked() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val isMovieFavorite = _movie.value?.data?.isFavorite
+            if (isMovieFavorite == true) {
+
+            }
+        }
     }
 }
