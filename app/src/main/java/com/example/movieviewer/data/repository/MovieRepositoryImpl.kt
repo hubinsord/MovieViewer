@@ -19,15 +19,15 @@ class MovieRepositoryImpl @Inject constructor(
         return remoteDataSource.getRandomMovie()
     }
 
-    override fun getMovieFromLocal(id: String): Single<Movie> {
+    override fun getMovie(id: String): Single<Movie> {
         return localDataSource.getMovie(id)
     }
 
-    override fun getMoviesListFromLocal(isFavorite: Boolean): Single<List<Movie>> {
+    override fun getMovies(isFavorite: Boolean): Single<List<Movie>> {
         return localDataSource.getAllMovies(isFavorite)
     }
 
-    override fun insertMovieLocal(movie: Movie): Completable {
+    override fun saveMovie(movie: Movie): Completable {
         return localDataSource.insertMovie(movie)
     }
 

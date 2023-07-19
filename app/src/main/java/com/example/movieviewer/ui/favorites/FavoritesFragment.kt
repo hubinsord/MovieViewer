@@ -1,4 +1,4 @@
-package com.example.movieviewer.ui.favoritelist
+package com.example.movieviewer.ui.favorites
 
 import android.app.AlertDialog
 import android.os.Bundle
@@ -13,12 +13,12 @@ import com.example.movieviewer.databinding.FragmentFavoritesListBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class FavoritesListFragment : Fragment(R.layout.fragment_favorites_list), FavoritesListAdapter.Companion.ClickListener {
+class FavoritesFragment : Fragment(R.layout.fragment_favorites_list), FavoritesAdapter.Companion.ClickListener {
 
-    private val viewModel: FavoritesListViewModel by viewModels()
+    private val viewModel: FavoritesViewModel by viewModels()
     private var _binding: FragmentFavoritesListBinding? = null
     private val binding get() = _binding!!
-    private val favoritesListAdapter = FavoritesListAdapter(this)
+    private val favoritesAdapter = FavoritesAdapter(this)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentFavoritesListBinding.inflate(inflater, container, false)
@@ -48,7 +48,7 @@ class FavoritesListFragment : Fragment(R.layout.fragment_favorites_list), Favori
 
     private fun initFavoritesRecyclerView() {
         binding.rcvFavoriteMovies.apply {
-            adapter = favoritesListAdapter
+            adapter = favoritesAdapter
             layoutManager = LinearLayoutManager(requireContext())
         }
     }
@@ -59,7 +59,7 @@ class FavoritesListFragment : Fragment(R.layout.fragment_favorites_list), Favori
     }
 
     private fun initMovieListObserver() {
-        viewModel.movieList.observe(viewLifecycleOwner) { favoritesListAdapter.submitList(it) }
+        viewModel.movieList.observe(viewLifecycleOwner) { favoritesAdapter.submitList(it) }
     }
 
     private fun initErrorObserver() {
@@ -80,6 +80,6 @@ class FavoritesListFragment : Fragment(R.layout.fragment_favorites_list), Favori
 
     companion object {
         @JvmStatic
-        fun newInstance() = FavoritesListFragment()
+        fun newInstance() = FavoritesFragment()
     }
 }

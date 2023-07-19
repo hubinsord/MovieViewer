@@ -55,8 +55,8 @@ class MovieViewModel @Inject constructor(
     @SuppressLint("CheckResult")
     fun onIsFavoriteClicked() {
         viewModelScope.launch(Dispatchers.Main) {
-            _movie.value?.let { movie ->
-                val movieCopy = movie.copy(isFavorite = !movie.isFavorite)
+            _movie.value?.let {
+                val movieCopy = it.copy(isFavorite = !it.isFavorite)
                 _movie.value = movieCopy
             }
             movie.value?.let {

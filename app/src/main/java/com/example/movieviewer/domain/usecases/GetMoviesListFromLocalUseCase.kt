@@ -9,6 +9,6 @@ class GetMoviesListFromLocalUseCase @Inject constructor(
     private val repository: MovieRepository
 ) {
     operator fun invoke(): Single<List<Movie>> {
-        return repository.getMoviesListFromLocal(true)
+        return repository.getMovies(true)
     }
 }

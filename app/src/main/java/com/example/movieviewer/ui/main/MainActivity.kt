@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.movieviewer.databinding.ActivityMainBinding
-import com.example.movieviewer.ui.favoritelist.FavoritesListFragment
+import com.example.movieviewer.ui.favorites.FavoritesFragment
 import com.example.movieviewer.ui.movie.MovieFragment
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         val fragmentList = arrayListOf<Fragment>(
             MovieFragment.newInstance(),
-            FavoritesListFragment.newInstance()
+            FavoritesFragment.newInstance()
         )
         binding.viewPager.adapter = MainFragmentPagerAdapter(fragmentList, supportFragmentManager, lifecycle)
     }

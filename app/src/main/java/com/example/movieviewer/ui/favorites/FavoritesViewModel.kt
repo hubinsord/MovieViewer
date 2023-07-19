@@ -1,21 +1,19 @@
-package com.example.movieviewer.ui.favoritelist
+package com.example.movieviewer.ui.favorites
 
 import android.annotation.SuppressLint
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.room.PrimaryKey
 import com.example.movieviewer.data.entities.Movie
 import com.example.movieviewer.domain.usecases.GetMoviesListFromLocalUseCase
 import com.example.movieviewer.domain.usecases.UpdateMoveUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
-import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
-class FavoritesListViewModel @Inject constructor(
+class FavoritesViewModel @Inject constructor(
     private val getMoviesListFromLocalUseCase: GetMoviesListFromLocalUseCase,
     private val updateMoveUseCase: UpdateMoveUseCase,
 ) : ViewModel() {

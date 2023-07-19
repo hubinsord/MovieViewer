@@ -9,6 +9,6 @@ class AddMovieUseCase @Inject constructor(
     private val repository: MovieRepository
 ) {
     operator fun invoke(movie: Movie): Completable {
-        return repository.insertMovieLocal(movie)
+        return repository.saveMovie(movie)
     }
 }

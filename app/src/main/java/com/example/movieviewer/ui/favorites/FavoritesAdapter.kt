@@ -1,4 +1,4 @@
-package com.example.movieviewer.ui.favoritelist
+package com.example.movieviewer.ui.favorites
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -10,15 +10,15 @@ import com.example.movieviewer.data.entities.Movie
 import com.example.movieviewer.databinding.ItemFavoriteListBinding
 import timber.log.Timber
 
-class FavoritesListAdapter(private val listener: FavoritesListAdapter.Companion.ClickListener) :
-    ListAdapter<Movie, FavoritesListAdapter.ViewHolder>(MovieComparator()) {
+class FavoritesAdapter(private val listener: FavoritesAdapter.Companion.ClickListener) :
+    ListAdapter<Movie, FavoritesAdapter.ViewHolder>(MovieComparator()) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoritesListAdapter.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoritesAdapter.ViewHolder {
         val binding = ItemFavoriteListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: FavoritesListAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: FavoritesAdapter.ViewHolder, position: Int) {
         val currentItem = getItem(position)
         if (currentItem != null) {
             holder.bind(currentItem)
@@ -26,13 +26,8 @@ class FavoritesListAdapter(private val listener: FavoritesListAdapter.Companion.
     }
 
     class MovieComparator : DiffUtil.ItemCallback<Movie>() {
-        override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean {
-            return oldItem.id == newItem.id
-        }
-
-        override fun areContentsTheSame(oldItem: Movie, newItem: Movie): Boolean {
-            return oldItem == newItem
-        }
+        override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean = oldItem.id == newItem.id
+        override fun areContentsTheSame(oldItem: Movie, newItem: Movie): Boolean = oldItem == newItem
     }
 
     inner class ViewHolder(private val binding: ItemFavoriteListBinding) :
@@ -42,9 +37,8 @@ class FavoritesListAdapter(private val listener: FavoritesListAdapter.Companion.
             binding.root.setOnClickListener {
                 val position = adapterPosition
                 if (position != RecyclerView.NO_POSITION) {
-                    val id = getItem(position).id
-                    val isFavorite = getItem(position).isFavorite
-                    listener.onFavoriteClicked(id, isFavorite)
+                    val item = getItem(position)
+                    listener.onFavoriteClicked(item.id, item.isFavorite)
                 }
             }
         }
@@ -52,14 +46,7 @@ class FavoritesListAdapter(private val listener: FavoritesListAdapter.Companion.
         fun bind(movie: Movie) {
             binding.apply {
                 tvMovieTitle.text = movie.title
-                Timber.tag("TEST05").d("isFav: ${movie.isFavorite}")
-                if (movie.isFavorite) {
-                    Timber.tag("TEST05").d("true")
-                    ivIsFavorite.setImageResource(R.drawable.iv_favorite_filled)
-                } else {
-                    Timber.tag("TEST05").d("false")
-                    ivIsFavorite.setImageResource(R.drawable.iv_favorite_outline)
-                }
+                ivIsFavorite.setImageResource(movie.favoriteDrawable)
             }
         }
     }
