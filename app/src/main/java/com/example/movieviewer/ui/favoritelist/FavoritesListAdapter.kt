@@ -7,8 +7,10 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.movieviewer.data.entities.Movie
 import com.example.movieviewer.databinding.ItemFavoriteListBinding
+import timber.log.Timber
 
-class FavoritesListAdapter(private val listener: FavoritesListAdapter.Companion.ClickListener) : ListAdapter<Movie, FavoritesListAdapter.ViewHolder>(MovieComparator()) {
+class FavoritesListAdapter(private val listener: FavoritesListAdapter.Companion.ClickListener) :
+    ListAdapter<Movie, FavoritesListAdapter.ViewHolder>(MovieComparator()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoritesListAdapter.ViewHolder {
         val binding = ItemFavoriteListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -19,7 +21,8 @@ class FavoritesListAdapter(private val listener: FavoritesListAdapter.Companion.
         val currentItem = getItem(position)
         if (currentItem != null) {
             holder.bind(currentItem)
-        }    }
+        }
+    }
 
     class MovieComparator : DiffUtil.ItemCallback<Movie>() {
         override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean {
@@ -44,7 +47,7 @@ class FavoritesListAdapter(private val listener: FavoritesListAdapter.Companion.
             }
         }
 
-        fun bind(movie: Movie){
+        fun bind(movie: Movie) {
             binding.apply {
                 tvMovieTitle.text = movie.title
             }

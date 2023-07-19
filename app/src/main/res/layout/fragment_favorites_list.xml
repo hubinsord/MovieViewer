@@ -10,14 +10,15 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/grey_900"
         tools:context=".ui.favoritelist.FavoritesListFragment">
 
+
+
         <androidx.recyclerview.widget.RecyclerView
+            android:paddingHorizontal="4dp"
             android:id="@+id/rcv_favorite_movies"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
