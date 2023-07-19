@@ -5,16 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.viewModelScope
 import com.bumptech.glide.Glide
 import com.example.movieviewer.R
 import com.example.movieviewer.data.entities.Movie
 import com.example.movieviewer.databinding.FragmentMovieBinding
-import com.example.movieviewer.domain.utils.Resource
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 
 @AndroidEntryPoint
 class MovieFragment : Fragment(R.layout.fragment_movie) {
@@ -23,11 +19,7 @@ class MovieFragment : Fragment(R.layout.fragment_movie) {
     private var _binding: FragmentMovieBinding? = null
     private val binding get() = _binding!!
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentMovieBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -40,14 +32,9 @@ class MovieFragment : Fragment(R.layout.fragment_movie) {
 
     private fun initListeners() {
         binding.apply {
-            ivRefreshMovie.setOnClickListener {
-                viewModel.onRefreshMovieClicked()
-            }
-            ivFavorite.setOnClickListener {
-                viewModel.onIsFavoriteClicked()
-            }
+            ivRefreshMovie.setOnClickListener { viewModel.onRefreshMovieClicked() }
+            ivFavorite.setOnClickListener { viewModel.onIsFavoriteClicked() }
         }
-
     }
 
     override fun onDestroyView() {
@@ -57,19 +44,7 @@ class MovieFragment : Fragment(R.layout.fragment_movie) {
 
     private fun initObservers() {
         initMovieObserver()
-        initIsfavoriteObserver()
-    }
-
-    private fun initIsfavoriteObserver() {
-        viewModel.isFavorite.observe(viewLifecycleOwner) { isFav ->
-            binding.ivFavorite.apply {
-//                if (isFav) {
-//                    this.setBackgroundResource(R.drawable.iv_favorite_filled)
-//                } else {
-//                    this.setBackgroundResource(R.drawable.iv_favorite_outline)
-//                }
-            }
-        }
+        initIsLoadingObserver()
     }
 
     private fun initMovieObserver() {
@@ -81,11 +56,19 @@ class MovieFragment : Fragment(R.layout.fragment_movie) {
         }
     }
 
+    private fun initIsLoadingObserver() {
+        viewModel.isFavorite.observe(viewLifecycleOwner) { isLoading ->
+            binding.progressBar.apply {
+                if (isLoading) this.visibility = View.VISIBLE else this.visibility = View.INVISIBLE
+            }
+        }
+    }
+
     private fun setIsFavoriteImageResource(movie: Movie?) {
-        if (movie!!.isFavorite) {
-            binding.ivFavorite.setBackgroundResource(R.drawable.iv_favorite_filled)
-        } else {
-            binding.ivFavorite.setBackgroundResource(R.drawable.iv_favorite_outline)
+        movie?.let { movie ->
+            binding.ivFavorite.setBackgroundResource(
+                if (movie.isFavorite) R.drawable.iv_favorite_filled else R.drawable.iv_favorite_outline
+            )
         }
     }
 
@@ -97,7 +80,6 @@ class MovieFragment : Fragment(R.layout.fragment_movie) {
                 .into(ivMoviePoster)
         }
     }
-
 
     companion object {
         @JvmStatic

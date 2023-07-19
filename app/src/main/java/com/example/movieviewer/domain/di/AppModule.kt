@@ -4,6 +4,7 @@ import com.example.movieviewer.domain.interfaces.MovieRepository
 import com.example.movieviewer.domain.usecases.AddMovieUseCase
 import com.example.movieviewer.domain.usecases.GetMoviesListFromLocalUseCase
 import com.example.movieviewer.domain.usecases.GetRandomMovieUseCase
+import com.example.movieviewer.domain.usecases.UpdateMoveUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -26,5 +27,8 @@ object AppModule {
     @Provides
     fun provideGetMoviesListFromLocalUseCase(repository: MovieRepository) = GetMoviesListFromLocalUseCase(repository)
 
+    @Singleton
+    @Provides
+    fun provideUpdateMovieUseCase(repository: MovieRepository) = UpdateMoveUseCase(repository)
 
 }

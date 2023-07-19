@@ -37,4 +37,8 @@ class MovieRepositoryImpl @Inject constructor(
     override fun insertMovieLocal(movie: Movie): Completable {
         return localDataSource.insertMovie(movie)
     }
+
+    override fun updateMovie(id: String, isFavorite: Boolean) : Completable {
+        return localDataSource.updateMovie(id, isFavorite)
+    }
 }

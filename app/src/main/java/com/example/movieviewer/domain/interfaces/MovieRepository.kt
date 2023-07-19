@@ -12,4 +12,5 @@ interface MovieRepository {
     fun getMovieFromLocal(id: String): Single<Movie>
     fun getMoviesListFromLocal(isFavorite: Boolean): Single<List<Movie>>
     fun insertMovieLocal(movie: Movie): Completable
+    fun updateMovie(id: String, isFavorite: Boolean): Completable
 }

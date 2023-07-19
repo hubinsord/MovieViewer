@@ -31,16 +31,18 @@ class MovieViewModel @Inject constructor(
     private val _movie = MutableLiveData<Movie>()
     val movie: LiveData<Movie> get() = _movie
 
-    private val _isFavorite = MutableLiveData<Boolean>(false)
-    val isFavorite: LiveData<Boolean> get() = _isFavorite
+    private val _isLoading = MutableLiveData<Boolean>(false)
+    val isFavorite: LiveData<Boolean> get() = _isLoading
 
     @SuppressLint("CheckResult")
     private fun getRandomMovie() {
         getRandomMovieUseCase.invoke()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe { _isLoading.value = true }
             .subscribe(
                 { randomMovie ->
+                    _isLoading.value = false
                     _movie.value = randomMovie
                 },
                 { t: Throwable -> }
@@ -53,16 +55,15 @@ class MovieViewModel @Inject constructor(
     }
 
     fun onIsFavoriteClicked() {
-        viewModelScope.launch(Dispatchers.IO) {
-            if (movie.value!!.isFavorite) {
-                _movie.postValue(movie.value!!.copy(isFavorite = false))
-            } else
-                _movie.postValue(movie.value!!.copy(isFavorite = true))
+        viewModelScope.launch(Dispatchers.Main) {
+            _movie.value?.let { movie ->
+                val movieCopy = movie.copy(isFavorite = !movie.isFavorite)
+                _movie.value = movieCopy
+            }
             addMovieUseCase.invoke(movie.value!!)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe()
         }
     }
-
 }

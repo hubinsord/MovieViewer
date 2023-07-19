@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Update
 import com.example.movieviewer.data.entities.Movie
 import com.example.movieviewer.data.source.local.entity.MovieDbEntity
 import com.example.movieviewer.domain.utils.Resource
@@ -21,8 +22,11 @@ interface MovieDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertMovie(movie: MovieDbEntity)
 
+    @Query("UPDATE $DB_NAME SET isFavorite = :isFavorite WHERE id =:id")
+    fun updateMovie(id: String, isFavorite: Boolean)
+
     @Query("DELETE FROM $DB_NAME")
-    fun deleteMovie()
+    fun deleteMovie() : Completable
 
     companion object {
         const val DB_NAME = "MOVIE_TABLE"

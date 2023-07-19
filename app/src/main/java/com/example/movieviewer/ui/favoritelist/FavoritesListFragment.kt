@@ -8,10 +8,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.movieviewer.R
-import com.example.movieviewer.data.entities.Movie
 import com.example.movieviewer.databinding.FragmentFavoritesListBinding
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 
 @AndroidEntryPoint
 class FavoritesListFragment : Fragment(R.layout.fragment_favorites_list), FavoritesListAdapter.Companion.ClickListener {
@@ -65,8 +63,8 @@ class FavoritesListFragment : Fragment(R.layout.fragment_favorites_list), Favori
         }
     }
 
-    override fun onFavoriteClicked(id: String) {
-
+    override fun onFavoriteClicked(id: String, isFavorite: Boolean) {
+        viewModel.onFavoriteClicked(id, isFavorite)
     }
 
     companion object {

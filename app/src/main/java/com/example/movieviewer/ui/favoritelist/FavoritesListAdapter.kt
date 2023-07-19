@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.movieviewer.R
 import com.example.movieviewer.data.entities.Movie
 import com.example.movieviewer.databinding.ItemFavoriteListBinding
 import timber.log.Timber
@@ -42,7 +43,8 @@ class FavoritesListAdapter(private val listener: FavoritesListAdapter.Companion.
                 val position = adapterPosition
                 if (position != RecyclerView.NO_POSITION) {
                     val id = getItem(position).id
-                    listener.onFavoriteClicked(id)
+                    val isFavorite = getItem(position).isFavorite
+                    listener.onFavoriteClicked(id, isFavorite)
                 }
             }
         }
@@ -50,13 +52,21 @@ class FavoritesListAdapter(private val listener: FavoritesListAdapter.Companion.
         fun bind(movie: Movie) {
             binding.apply {
                 tvMovieTitle.text = movie.title
+                Timber.tag("TEST05").d("isFav: ${movie.isFavorite}")
+                if (movie.isFavorite) {
+                    Timber.tag("TEST05").d("true")
+                    ivIsFavorite.setImageResource(R.drawable.iv_favorite_filled)
+                } else {
+                    Timber.tag("TEST05").d("false")
+                    ivIsFavorite.setImageResource(R.drawable.iv_favorite_outline)
+                }
             }
         }
     }
 
     companion object {
         interface ClickListener {
-            fun onFavoriteClicked(id: String)
+            fun onFavoriteClicked(id: String, isFavorite: Boolean)
         }
     }
 }

@@ -36,6 +36,10 @@ class MovieLocalDataSourceImpl @Inject constructor(
         return Completable.fromAction { movieDao.insertMovie(movie = movie.toMovieDbEntity()) }
     }
 
+    override fun updateMovie(id: String, isFavorite: Boolean): Completable {
+        return Completable.fromAction { movieDao.updateMovie(id, isFavorite) }
+    }
+
     override fun deleteMovie(id: String): Completable {
         return Completable.fromAction { movieDao.deleteMovie() }
     }
