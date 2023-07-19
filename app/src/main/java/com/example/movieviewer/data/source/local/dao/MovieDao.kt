@@ -4,10 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import androidx.room.Update
-import com.example.movieviewer.data.entities.Movie
 import com.example.movieviewer.data.source.local.entity.MovieDbEntity
-import com.example.movieviewer.domain.utils.Resource
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
 

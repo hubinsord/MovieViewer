@@ -5,11 +5,9 @@ import com.example.movieviewer.data.source.local.db.MovieDatabase
 import com.example.movieviewer.data.source.local.entity.toMovie
 import com.example.movieviewer.data.source.local.entity.toMovieDbEntity
 import com.example.movieviewer.domain.interfaces.MovieLocalDataSource
-import com.example.movieviewer.domain.utils.Resource
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
-import timber.log.Timber
 import javax.inject.Inject
 
 class MovieLocalDataSourceImpl @Inject constructor(
@@ -23,7 +21,6 @@ class MovieLocalDataSourceImpl @Inject constructor(
     }
 
     override fun getAllMovies(isFavorite: Boolean): Single<List<Movie>> {
-        Timber.tag("TEST05").d("getALlMovies")
         return movieDao.getAllMovies(isFavorite)
             .concatMap { list ->
                 Observable.fromIterable(list)

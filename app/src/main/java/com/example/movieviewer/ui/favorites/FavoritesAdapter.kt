@@ -43,11 +43,9 @@ class FavoritesAdapter(private val listener: FavoritesAdapter.Companion.ClickLis
             }
         }
 
-        fun bind(movie: Movie) {
-            binding.apply {
-                tvMovieTitle.text = movie.title
-                ivIsFavorite.setImageResource(movie.favoriteDrawable)
-            }
+        fun bind(movie: Movie) = with(binding) {
+            tvMovieTitle.text = movie.title
+            ivIsFavorite.setImageResource(movie.favoriteDrawable)
         }
     }
 

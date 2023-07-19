@@ -4,8 +4,6 @@ import com.example.movieviewer.data.entities.Movie
 import com.example.movieviewer.domain.interfaces.MovieLocalDataSource
 import com.example.movieviewer.domain.interfaces.MovieRemoteDataSource
 import com.example.movieviewer.domain.interfaces.MovieRepository
-import com.example.movieviewer.domain.utils.Resource
-import com.example.movieviewer.domain.utils.safeCall
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
 import javax.inject.Inject

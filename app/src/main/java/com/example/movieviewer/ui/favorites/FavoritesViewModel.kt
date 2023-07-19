@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.movieviewer.data.entities.Movie
 import com.example.movieviewer.domain.usecases.GetMoviesListFromLocalUseCase
-import com.example.movieviewer.domain.usecases.UpdateMoveUseCase
+import com.example.movieviewer.domain.usecases.UpdateMovieUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -15,7 +15,7 @@ import javax.inject.Inject
 @HiltViewModel
 class FavoritesViewModel @Inject constructor(
     private val getMoviesListFromLocalUseCase: GetMoviesListFromLocalUseCase,
-    private val updateMoveUseCase: UpdateMoveUseCase,
+    private val updateMoveUseCase: UpdateMovieUseCase,
 ) : ViewModel() {
 
     private val _movieList = MutableLiveData<List<Movie>>()

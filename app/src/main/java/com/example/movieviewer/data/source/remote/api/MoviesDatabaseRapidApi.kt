@@ -1,7 +1,6 @@
 package com.example.movieviewer.data.source.remote.api
 
 import com.example.movieviewer.data.source.remote.entities.MovieContainerResponse
-import com.example.movieviewer.domain.utils.Resource
 import io.reactivex.rxjava3.core.Single
 import retrofit2.http.GET
 import retrofit2.http.Query
