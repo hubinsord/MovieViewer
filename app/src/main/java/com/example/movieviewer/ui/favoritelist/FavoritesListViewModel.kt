@@ -36,6 +36,7 @@ class FavoritesListViewModel @Inject constructor(
 
     fun onFavoriteClicked(id: String, isFavorite: Boolean) {
         updateMovie(id, isFavorite)
+        getMovies()
     }
 
     private fun updateMovie(id: String, isFavorite: Boolean) {
