@@ -1,5 +1,6 @@
 package com.example.movieviewer.ui.favoritelist
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -42,25 +43,35 @@ class FavoritesListFragment : Fragment(R.layout.fragment_favorites_list), Favori
     }
 
     private fun initViews() {
-        initFavoritesListRecyclerView()
-//        initListeners()
+        initFavoritesRecyclerView()
     }
 
-    private fun initFavoritesListRecyclerView() {
+    private fun initFavoritesRecyclerView() {
         binding.rcvFavoriteMovies.apply {
             adapter = favoritesListAdapter
             layoutManager = LinearLayoutManager(requireContext())
         }
     }
 
-    private fun initListeners() {
-
+    private fun intObservers() {
+        initMovieListObserver()
+        initErrorObserver()
     }
 
-    private fun intObservers() {
-        viewModel.movieList.observe(viewLifecycleOwner){
-          favoritesListAdapter.submitList(it)
-        }
+    private fun initMovieListObserver() {
+        viewModel.movieList.observe(viewLifecycleOwner) { favoritesListAdapter.submitList(it) }
+    }
+
+    private fun initErrorObserver() {
+        viewModel.error.observe(viewLifecycleOwner) { showErrorDialog(it) }
+    }
+
+    private fun showErrorDialog(error: String?) {
+        val dialog: AlertDialog = AlertDialog.Builder(requireContext())
+            .setTitle(getString(R.string.title_error))
+            .setMessage(error)
+            .create()
+        dialog.show()
     }
 
     override fun onFavoriteClicked(id: String, isFavorite: Boolean) {

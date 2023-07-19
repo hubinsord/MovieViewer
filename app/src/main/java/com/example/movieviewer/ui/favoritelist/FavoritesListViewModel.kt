@@ -23,6 +23,9 @@ class FavoritesListViewModel @Inject constructor(
     private val _movieList = MutableLiveData<List<Movie>>()
     val movieList: LiveData<List<Movie>> get() = _movieList
 
+    private val _error = MutableLiveData<String>()
+    val error: LiveData<String> get() = _error
+
     @SuppressLint("CheckResult")
     fun getMovies() {
         getMoviesListFromLocalUseCase.invoke()
@@ -30,7 +33,7 @@ class FavoritesListViewModel @Inject constructor(
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 { list -> _movieList.value = list },
-                { t: Throwable ->  }
+                { t: Throwable -> _error.value = t.message }
             )
     }
 
@@ -39,10 +42,13 @@ class FavoritesListViewModel @Inject constructor(
         getMovies()
     }
 
+    @SuppressLint("CheckResult")
     private fun updateMovie(id: String, isFavorite: Boolean) {
         updateMoveUseCase.invoke(id, !isFavorite)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe()
+            .subscribe(
+                { },
+                { t: Throwable -> _error.value = t.message })
     }
 }

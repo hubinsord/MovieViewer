@@ -15,13 +15,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-data class MovieUiState(
-    val movie: Movie,
-    val isLoading: Boolean = false,
-    val isError: Boolean = false
-)
-
-
 @HiltViewModel
 class MovieViewModel @Inject constructor(
     private val getRandomMovieUseCase: GetRandomMovieUseCase,
@@ -32,7 +25,10 @@ class MovieViewModel @Inject constructor(
     val movie: LiveData<Movie> get() = _movie
 
     private val _isLoading = MutableLiveData<Boolean>(false)
-    val isFavorite: LiveData<Boolean> get() = _isLoading
+    val isLoading: LiveData<Boolean> get() = _isLoading
+
+    private val _error = MutableLiveData<String>()
+    val error: LiveData<String> get() = _error
 
     @SuppressLint("CheckResult")
     private fun getRandomMovie() {
@@ -45,25 +41,33 @@ class MovieViewModel @Inject constructor(
                     _isLoading.value = false
                     _movie.value = randomMovie
                 },
-                { t: Throwable -> }
+                { t: Throwable ->
+                    _isLoading.value = false
+                    _error.value = t.message
+                }
             )
     }
-
 
     fun onRefreshMovieClicked() {
         getRandomMovie()
     }
 
+    @SuppressLint("CheckResult")
     fun onIsFavoriteClicked() {
         viewModelScope.launch(Dispatchers.Main) {
             _movie.value?.let { movie ->
                 val movieCopy = movie.copy(isFavorite = !movie.isFavorite)
                 _movie.value = movieCopy
             }
-            addMovieUseCase.invoke(movie.value!!)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe()
+            movie.value?.let {
+                addMovieUseCase.invoke(it)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+                        {},
+                        { t: Throwable -> _error.value = t.message }
+                    )
+            }
         }
     }
 }

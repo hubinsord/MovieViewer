@@ -14,14 +14,6 @@ interface MoviesDatabaseRapidApi {
         @Query("list") list: String = "most_pop_movies"
     ): Single<MovieContainerResponse>
 
-    // temporarily left, used to check api calls
-    @GET("titles/random")
-    suspend fun getMovie(
-        @Query("limit") limit: Int = 1,
-        @Query("list") list: String = "most_pop_movies"
-    ): MovieContainerResponse
-
-
     companion object {
         const val BASE_URL = "https://moviesdatabase.p.rapidapi.com/"
     }

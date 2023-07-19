@@ -1,10 +1,12 @@
 package com.example.movieviewer.ui.movie
 
+import android.app.AlertDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.example.movieviewer.R
@@ -45,6 +47,15 @@ class MovieFragment : Fragment(R.layout.fragment_movie) {
     private fun initObservers() {
         initMovieObserver()
         initIsLoadingObserver()
+        initErrorObserver()
+    }
+
+    private fun showErrorDialog(error: String?) {
+        val dialog: AlertDialog = AlertDialog.Builder(requireContext())
+            .setTitle(getString(R.string.title_error))
+            .setMessage(error)
+            .create()
+        dialog.show()
     }
 
     private fun initMovieObserver() {
@@ -66,10 +77,14 @@ class MovieFragment : Fragment(R.layout.fragment_movie) {
     }
 
     private fun initIsLoadingObserver() {
-        viewModel.isFavorite.observe(viewLifecycleOwner) { isLoading ->
-            binding.progressBar.apply {
-                if (isLoading) this.visibility = View.VISIBLE else this.visibility = View.INVISIBLE
-            }
+        viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
+            binding.progressBar.isVisible = isLoading
+        }
+    }
+
+    private fun initErrorObserver() {
+        viewModel.error.observe(viewLifecycleOwner) {
+            showErrorDialog(it)
         }
     }
 
