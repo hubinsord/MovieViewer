@@ -7,8 +7,6 @@ import io.reactivex.rxjava3.core.Single
 
 interface MovieRepository {
     fun getRandomMovie(): Single<Movie>
-    suspend fun getMovie(): Resource<Movie>
-
     fun getMovieFromLocal(id: String): Single<Movie>
     fun getMoviesListFromLocal(isFavorite: Boolean): Single<List<Movie>>
     fun insertMovieLocal(movie: Movie): Completable

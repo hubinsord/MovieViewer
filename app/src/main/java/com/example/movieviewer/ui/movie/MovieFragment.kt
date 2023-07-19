@@ -89,11 +89,7 @@ class MovieFragment : Fragment(R.layout.fragment_movie) {
     }
 
     private fun setIsFavoriteImageResource(movie: Movie?) {
-        movie?.let { movie ->
-            binding.ivFavorite.setBackgroundResource(
-                if (movie.isFavorite) R.drawable.iv_favorite_filled else R.drawable.iv_favorite_outline
-            )
-        }
+        movie?.let { binding.ivFavorite.setBackgroundResource(it.favoriteDrawable) }
     }
 
     companion object {

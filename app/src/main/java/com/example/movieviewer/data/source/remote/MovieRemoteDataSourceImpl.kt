@@ -22,9 +22,4 @@ class MovieRemoteDataSourceImpl @Inject constructor(
             .subscribeOn(Schedulers.io())
             .map { it.toMovieEntity() }
     }
-
-    // temporarily left, used to check api calls
-    override suspend fun getMovie(): Movie {
-        return withContext(Dispatchers.IO) { api.getMovie().toMovieEntity() }
-    }
 }

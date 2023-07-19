@@ -9,11 +9,5 @@ import javax.inject.Inject
 class GetRandomMovieUseCase @Inject constructor(
     private val movieRepository: MovieRepository
 ) {
-    suspend fun invokeCoroutines(): Resource<Movie> {
-        return movieRepository.getMovie()
-    }
-
-    operator fun invoke(): Single<Movie> {
-        return movieRepository.getRandomMovie()
-    }
+    operator fun invoke(): Single<Movie> = movieRepository.getRandomMovie()
 }

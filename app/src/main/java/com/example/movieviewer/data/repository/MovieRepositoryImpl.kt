@@ -19,13 +19,6 @@ class MovieRepositoryImpl @Inject constructor(
         return remoteDataSource.getRandomMovie()
     }
 
-    // temporarily left, used to check api calls
-    override suspend fun getMovie(): Resource<Movie> {
-        return safeCall {
-            remoteDataSource.getMovie()
-        }
-    }
-
     override fun getMovieFromLocal(id: String): Single<Movie> {
         return localDataSource.getMovie(id)
     }
